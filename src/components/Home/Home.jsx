@@ -53,15 +53,6 @@ const Home = () => {
                     }
                 </Swiper>
             </div>
-            {/* <div className='mt-3'>
-                <Slide>
-                    <h3 className="text-center fw-bold">Your Favorite Playlist</h3>
-                </Slide>
-                <Fade delay={1e3} cascade damping={1e-1}>
-                    <p className="text-center text-xl">Here you will see your favorite music</p>
-                </Fade>
-                <hr className='border border-4 border-secondary mx-5 rounded' />
-            </div> */}
         </div>
     );
 };
