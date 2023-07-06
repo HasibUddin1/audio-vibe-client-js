@@ -6,6 +6,7 @@ import Login from "../components/Login/Login";
 import Playlists from "../components/Playlists/Playlists";
 import Favorites from "../components/Favorites/Favorites";
 import Search from "../components/Search/Search";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
     {
@@ -22,11 +23,11 @@ const router = createBrowserRouter([
             },
             {
                 path: 'favorites',
-                element: <Favorites></Favorites>
+                element: <PrivateRoute><Favorites></Favorites></PrivateRoute>
             },
             {
                 path: 'playlists',
-                element: <Playlists></Playlists>
+                element: <PrivateRoute><Playlists></Playlists></PrivateRoute>
             },
             {
                 path: 'login',
