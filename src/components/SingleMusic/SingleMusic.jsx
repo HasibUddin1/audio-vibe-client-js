@@ -3,10 +3,13 @@ import { MdFavorite, MdPlaylistAddCircle } from "react-icons/md";
 import { useContext } from 'react';
 import { AuthContext } from '../../providers/AuthProviders';
 import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 const SingleMusic = ({ music }) => {
 
     const { user } = useContext(AuthContext)
+
+    const navigate = useNavigate()
 
     const handleAddToFavorite = () => {
 
@@ -22,34 +25,51 @@ const SingleMusic = ({ music }) => {
             userEmail: user?.email
         }
 
-        fetch("https://audio-vibe-server.vercel.app/favoriteMusic", {
-            method: 'POST',
-            headers: {
-                "content-type": "application/json"
-            },
-            body: JSON.stringify(favoriteMusicInfo)
-        })
-            .then(res => res.json())
-            .then(data => {
-                // console.log(data)
-                if(data.insertedId){
-                    Swal.fire({
-                        title: 'Success',
-                        text: 'This music has been added to your favorites',
-                        icon: 'success',
-                        confirmButtonText: 'Ok'
-                    })
-                }
+        if (user) {
+            fetch("https://audio-vibe-server.vercel.app/favoriteMusic", {
+                method: 'POST',
+                headers: {
+                    "content-type": "application/json"
+                },
+                body: JSON.stringify(favoriteMusicInfo)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    // console.log(data)
+                    if (data.insertedId) {
+                        Swal.fire({
+                            title: 'Success',
+                            text: 'This music has been added to your favorites',
+                            icon: 'success',
+                            confirmButtonText: 'Ok'
+                        })
+                    }
 
-                if(data.message){
-                    Swal.fire({
-                        title: '',
-                        text: data.message,
-                        icon: 'error',
-                        confirmButtonText: 'Ok'
-                    })
+                    if (data.message) {
+                        Swal.fire({
+                            title: '',
+                            text: data.message,
+                            icon: 'error',
+                            confirmButtonText: 'Ok'
+                        })
+                    }
+                })
+        }
+        else {
+            Swal.fire({
+                title: '',
+                text: "You must be logged in to add to favorite",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Login now'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    navigate('/login')
                 }
             })
+        }
     }
 
 
