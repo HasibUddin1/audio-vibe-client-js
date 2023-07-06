@@ -11,11 +11,14 @@ import store from './store';
 // bootstrap css
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import AuthProviders from './providers/AuthProviders';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store={store}>
-      <RouterProvider router={router} />
+      <AuthProviders>
+        <RouterProvider router={router} />
+      </AuthProviders>
     </Provider>
   </React.StrictMode>,
 )
