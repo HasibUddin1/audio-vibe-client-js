@@ -1,5 +1,6 @@
 import './SingleMusic.css'
 import { MdFavorite, MdPlaylistAddCircle } from "react-icons/md";
+import { FaPlayCircle } from "react-icons/fa";
 import { useContext } from 'react';
 import { AuthContext } from '../../providers/AuthProviders';
 import Swal from 'sweetalert2';
@@ -85,9 +86,10 @@ const SingleMusic = ({ music }) => {
                         <p className="card-text">Singer: {music.artist}</p>
                         <p className="card-text"><small className="text-body-secondary">Released Year: {music.year}</small></p>
                     </div>
-                    <div className='text-end'>
-                        <button className='btn fs-2 text-secondary'><MdPlaylistAddCircle></MdPlaylistAddCircle></button>
-                        <button onClick={handleAddToFavorite} className='btn fs-2 text-danger'><MdFavorite></MdFavorite></button>
+                    <div className='d-flex align-items-center justify-content-end'>
+                        <a className='fs-3' href={music.audio} target='blank'><FaPlayCircle></FaPlayCircle></a>
+                        <button className='border-0 bg-transparent fs-2 text-secondary'><MdPlaylistAddCircle></MdPlaylistAddCircle></button>
+                        <button onClick={handleAddToFavorite} className='border-0 bg-transparent fs-2 text-danger'><MdFavorite></MdFavorite></button>
                     </div>
                 </div>
             </div>

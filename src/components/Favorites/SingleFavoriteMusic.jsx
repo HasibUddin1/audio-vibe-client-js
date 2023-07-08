@@ -1,3 +1,4 @@
+import { FaPlayCircle } from "react-icons/fa";
 import { MdFavorite } from "react-icons/md";
 
 
@@ -14,7 +15,8 @@ const SingleFavoriteMusic = ({ music }) => {
                         <p className="card-text">Singer: {music.artist}</p>
                         <p className="card-text"><small className="text-body-secondary">Released Year: {music.year}</small></p>
                     </div>
-                    <div className='text-end'>
+                    <div className='d-flex justify-content-end align-items-center'>
+                        <a className='fs-3' href={music.audio} target='blank'><FaPlayCircle></FaPlayCircle></a>
                         <button disabled className='btn fs-2 text-danger border-0'><MdFavorite></MdFavorite></button>
                     </div>
                 </div>
