@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import SingleMusic from "../SingleMusic/SingleMusic";
 import './Search.css'
 import { Slide } from "react-awesome-reveal";
+import SingleSearchMusic from "./SingleSearchMusic";
 
 
 const Search = () => {
@@ -16,19 +16,19 @@ const Search = () => {
 
     // const handleSearch = () => {
     //     // implement searching
-    //     fetch(`https://audio-vibe-server.vercel.app/getMusicByTitle/${searchText}`)
+    //     fetch(`http://localhost:5000/getMusicByTitle/${searchText}`)
     //     .then(res => res.json())
     //     .then(data => console.log(data))
     // }
 
     useEffect(() => {
         if (searchText) {
-            fetch(`https://audio-vibe-server.vercel.app/getMusicByTitle/${searchText}`)
+            fetch(`http://localhost:5000/getMusicByTitle/${searchText}`)
                 .then(res => res.json())
                 .then(data => setAllMusic(data))
         }
         else {
-            fetch('https://audio-vibe-server.vercel.app/allMusicOnSearchDefault')
+            fetch('http://localhost:5000/allMusicOnSearchDefault')
                 .then(res => res.json())
                 .then(data => setAllMusic(data))
         }
@@ -37,7 +37,7 @@ const Search = () => {
 
     const handleShowMore = () => {
         // load all music
-        fetch('https://audio-vibe-server.vercel.app/allMusic')
+        fetch('http://localhost:5000/allMusic')
             .then(res => res.json())
             .then(data => setAllMusic(data))
 
@@ -55,10 +55,10 @@ const Search = () => {
             </div>
             <div className="all-music-container p-2 mt-5 overflow-hidden">
                 {
-                    allMusic.map(music => <SingleMusic
+                    allMusic.map(music => <SingleSearchMusic
                         key={music._id}
                         music={music}
-                    ></SingleMusic>)
+                    ></SingleSearchMusic>)
                 }
             </div>
             <div className="text-center">

@@ -14,7 +14,7 @@ const Playlists = () => {
     const [playlists, setPlaylists] = useState([])
 
     useEffect(() => {
-        fetch(`https://audio-vibe-server.vercel.app/getPlaylistByUser/${user?.email}`)
+        fetch(`http://localhost:5000/getPlaylistByUser/${user?.email}`)
             .then(res => res.json())
             .then(data => setPlaylists(data))
     }, [user])

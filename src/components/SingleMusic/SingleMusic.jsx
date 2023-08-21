@@ -27,7 +27,7 @@ const SingleMusic = ({ music }) => {
         }
 
         if (user) {
-            fetch("https://audio-vibe-server.vercel.app/favoriteMusic", {
+            fetch("http://localhost:5000/favoriteMusic", {
                 method: 'POST',
                 headers: {
                     "content-type": "application/json"

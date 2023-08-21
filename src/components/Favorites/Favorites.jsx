@@ -13,7 +13,7 @@ const Favorites = () => {
     const [allMusic, setAllMusic] = useState([])
 
     useEffect(() => {
-        fetch(`https://audio-vibe-server.vercel.app/favoriteMusicByUser/${user?.email}`)
+        fetch(`http://localhost:5000/favoriteMusicByUser/${user?.email}`)
             .then(res => res.json())
             .then(data => setAllMusic(data))
     }, [user])
