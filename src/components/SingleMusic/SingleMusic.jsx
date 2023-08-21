@@ -6,7 +6,7 @@ import { AuthContext } from '../../providers/AuthProviders';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 
-const SingleMusic = ({ music, handleShow }) => {
+const SingleMusic = ({ music, handleShow, getSingleMusic }) => {
 
     const { user } = useContext(AuthContext)
 
@@ -88,7 +88,10 @@ const SingleMusic = ({ music, handleShow }) => {
                     </div>
                     <div className='d-flex align-items-center justify-content-end'>
                         <a className='fs-3' href={music.audio} target='blank'><FaPlayCircle></FaPlayCircle></a>
-                        <button onClick={handleShow} className='border-0 bg-transparent fs-2 text-secondary'><MdPlaylistAddCircle></MdPlaylistAddCircle></button>
+                        <button onClick={() => {
+                            handleShow(music)
+                            getSingleMusic(music)
+                        }} className='border-0 bg-transparent fs-2 text-secondary'><MdPlaylistAddCircle></MdPlaylistAddCircle></button>
                         <button onClick={handleAddToFavorite} className='border-0 bg-transparent fs-2 text-danger'><MdFavorite></MdFavorite></button>
                     </div>
                 </div>

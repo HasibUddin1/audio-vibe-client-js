@@ -20,9 +20,13 @@ const Home = () => {
 
     const dispatch = useDispatch()
     const [show, setShow] = useState(false);
+    const [singleMusic, setSingleMusic] = useState(null)
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const getSingleMusic = music => {
+        setSingleMusic(music)
+    }
 
     useEffect(() => {
         dispatch(getAllMusic())
@@ -41,6 +45,8 @@ const Home = () => {
                 <AddToPlaylistModal
                     show={show}
                     handleClose={handleClose}
+                    handleShow={handleShow}
+                    singleMusic={singleMusic}
                  />
                 <Swiper
                     slidesPerView={3}
@@ -58,6 +64,7 @@ const Home = () => {
                             <SingleMusic
                                 music={music}
                                 handleShow={handleShow}
+                                getSingleMusic={getSingleMusic}
                             ></SingleMusic>
                         </SwiperSlide>)
                     }
