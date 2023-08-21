@@ -5,6 +5,8 @@ import { useState, useEffect, useContext } from 'react'
 import { Button } from "react-bootstrap";
 import CreatePlaylistModal from "../CreatePlaylistModal/CreatePlaylistModal";
 import { AuthContext } from "../../providers/AuthProviders";
+import PlaylistButton from "./PlaylistButton";
+import SingleSearchMusic from "../Search/SingleSearchMusic";
 
 const Playlists = () => {
     const [modalShow, setModalShow] = useState(false);
@@ -13,6 +15,8 @@ const Playlists = () => {
 
     const [playlists, setPlaylists] = useState([])
 
+    const [songs, setSongs] = useState([])
+
     useEffect(() => {
         fetch(`http://localhost:5000/getPlaylistByUser/${user?.email}`)
             .then(res => res.json())
@@ -20,7 +24,7 @@ const Playlists = () => {
     }, [user])
 
     return (
-        <div>
+        <div className="overflow-hidden">
             <Slide>
                 <h3 className="text-center fw-bold mt-3">Create Your Own Playlist</h3>
                 <div className="text-center">
@@ -34,11 +38,21 @@ const Playlists = () => {
                     />
                 </div>
             </Slide>
-            <div className="w-75 mx-auto button-container mt-3">
+            <div className="mx-auto button-container mt-3">
                 {
-                    playlists.map(playlist => <div key={playlist._id} className="text-center">
-                        <button className="btn w-50 btn-success rounded-pill fw-bold col-4">{playlist.playlistName}</button>
-                    </div>)
+                    playlists.map(playlist => <PlaylistButton
+                        key={playlist._id}
+                        playlist={playlist}
+                        setSongs={setSongs}
+                    ></PlaylistButton>)
+                }
+            </div>
+            <div className="container-fluid all-music-container mt-5">
+                {
+                    songs.map(music => <SingleSearchMusic
+                        key={music._id}
+                        music={music}
+                    ></SingleSearchMusic>)
                 }
             </div>
         </div>
