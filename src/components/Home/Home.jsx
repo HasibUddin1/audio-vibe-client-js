@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import getAllMusic from "../../reduxServices/actions/allMusicActions";
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -10,6 +10,7 @@ import bannerImage from '../../assets/images/banner-image-for-audio-hub.jpg'
 import 'swiper/css';
 import 'swiper/css/pagination';
 import SingleMusic from "../SingleMusic/SingleMusic";
+import AddToPlaylistModal from "../AddToPlaylistModal/AddToPlaylistModal";
 
 
 
@@ -18,6 +19,10 @@ const Home = () => {
     const { allMusic } = useSelector(state => state.allMusic)
 
     const dispatch = useDispatch()
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     useEffect(() => {
         dispatch(getAllMusic())
@@ -33,6 +38,10 @@ const Home = () => {
                     <p className="text-center text-xl">Here you will see the featured music</p>
                 </Fade>
                 <hr className='border border-4 border-secondary mx-5 rounded' />
+                <AddToPlaylistModal
+                    show={show}
+                    handleClose={handleClose}
+                 />
                 <Swiper
                     slidesPerView={3}
                     spaceBetween={30}
@@ -48,6 +57,7 @@ const Home = () => {
                         >
                             <SingleMusic
                                 music={music}
+                                handleShow={handleShow}
                             ></SingleMusic>
                         </SwiperSlide>)
                     }
