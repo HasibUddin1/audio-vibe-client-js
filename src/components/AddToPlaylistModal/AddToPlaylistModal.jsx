@@ -29,6 +29,13 @@ const AddToPlaylistModal = ({ show, handleClose, singleMusic }) => {
             if(data.modifiedCount > 0){
                 toast.success("Successfully added to playlist")
             }
+
+            if(data.message){
+                toast.error(data.message)
+            }
+        })
+        .catch(error => {
+            console.log(error.message)
         })
     }
 
