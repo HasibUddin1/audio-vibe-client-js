@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import getAllMusic from "../../reduxServices/actions/allMusicActions";
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -11,6 +11,9 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import SingleMusic from "../SingleMusic/SingleMusic";
 import AddToPlaylistModal from "../AddToPlaylistModal/AddToPlaylistModal";
+import { AuthContext } from "../../providers/AuthProviders";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -21,9 +24,30 @@ const Home = () => {
     const dispatch = useDispatch()
     const [show, setShow] = useState(false);
     const [singleMusic, setSingleMusic] = useState(null)
+    const { user } = useContext(AuthContext)
+    const navigate = useNavigate()
 
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleShow = () => {
+        if (user) {
+            setShow(true)
+        }
+        else{
+            Swal.fire({
+                title: '',
+                text: "You must be logged in to add to playlist",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Login now'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    navigate('/login')
+                }
+            })
+        }
+    };
     const getSingleMusic = music => {
         setSingleMusic(music)
     }
@@ -47,7 +71,7 @@ const Home = () => {
                     handleClose={handleClose}
                     handleShow={handleShow}
                     singleMusic={singleMusic}
-                 />
+                />
                 <Swiper
                     slidesPerView={3}
                     spaceBetween={30}

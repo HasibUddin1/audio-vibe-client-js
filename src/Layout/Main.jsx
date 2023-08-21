@@ -1,6 +1,7 @@
 import { Col, Row } from "react-bootstrap";
 import NavigationBar from "../components/NavigationBar/NavigationBar";
 import { Outlet } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 
 
 
@@ -15,6 +16,10 @@ const Main = () => {
                     <Outlet></Outlet>
                 </Col>
             </Row>
+            <Toaster
+                position="top-center"
+                reverseOrder={false}
+            />
         </div>
     );
 };

@@ -28,6 +28,8 @@ const Favorites = () => {
                     allMusic.map((music) => <SingleFavoriteMusic
                         key={music._id}
                         music={music}
+                        allMusic={allMusic}
+                        setAllMusic={setAllMusic}
                     >
 
                     </SingleFavoriteMusic>)

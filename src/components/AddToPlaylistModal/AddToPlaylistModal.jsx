@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { AuthContext } from "../../providers/AuthProviders";
+import { toast } from "react-hot-toast";
 
 
 const AddToPlaylistModal = ({ show, handleClose, singleMusic }) => {
@@ -16,7 +17,6 @@ const AddToPlaylistModal = ({ show, handleClose, singleMusic }) => {
     }, [user])
 
     const handleAddToPlaylist = (id) => {
-        console.log(id, singleMusic)
         fetch('http://localhost:5000/addToPlaylist', {
             method: 'POST',
             headers: {
@@ -26,7 +26,9 @@ const AddToPlaylistModal = ({ show, handleClose, singleMusic }) => {
         })
         .then(res => res.json())
         .then(data => {
-            console.log(data)
+            if(data.modifiedCount > 0){
+                toast.success("Successfully added to playlist")
+            }
         })
     }
 
