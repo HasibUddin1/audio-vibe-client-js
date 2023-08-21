@@ -5,3 +5,12 @@
     top: 0;
     overflow-y: auto;
 }
+
+.hover-effect:hover{
+    background-color: lightgray;
+    border-radius: 12px;
+}
+.bg-active-color{
+    background-color: lightgray;
+    border-radius: 12px;
+}

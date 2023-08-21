@@ -37,8 +37,8 @@ const NavigationBar = () => {
                 to='/'
                 className={({ isActive }) =>
                     isActive
-                        ? "bg-secondary-subtle p-2 text-black fw-bold rounded nav-link fs-5 d-flex align-items-center gap-2"
-                        : "text-white fw-bold nav-link fs-5 d-flex align-items-center gap-2"
+                        ? "p-2 text-black fw-bold rounded nav-link fs-5 d-flex align-items-center gap-2 bg-secondary-subtle"
+                        : "text-white fw-bold nav-link fs-5 d-flex align-items-center gap-2 p-2 hover-effect"
                 }
             >
                 <FaHome></FaHome> Home
@@ -47,41 +47,47 @@ const NavigationBar = () => {
                 to='/search'
                 className={({ isActive }) =>
                     isActive
-                        ? "bg-secondary-subtle p-2 text-black fw-bold nav-link rounded fs-5 d-flex align-items-center gap-2"
-                        : "text-white fw-bold nav-link fs-5 d-flex align-items-center gap-2"
+                        ? "p-2 text-black fw-bold rounded nav-link fs-5 d-flex align-items-center gap-2 bg-secondary-subtle"
+                        : "text-white fw-bold nav-link fs-5 d-flex align-items-center gap-2 p-2 hover-effect"
                 }
             >
                 <FaSearch></FaSearch> Search
             </NavLink>
-            <NavLink
-                to='/favorites'
-                className={({ isActive }) =>
-                    isActive
-                        ? "bg-secondary-subtle p-2 text-black fw-bold nav-link rounded fs-5 d-flex align-items-center gap-2"
-                        : "text-white fw-bold nav-link fs-5 d-flex align-items-center gap-2"
-                }
-            >
-                <MdFavorite></MdFavorite> Favorites
-            </NavLink>
-            <NavLink
-                to='/playlists'
-                className={({ isActive }) =>
-                    isActive
-                        ? "bg-secondary-subtle p-2 text-black fw-bold nav-link rounded fs-5 d-flex align-items-center gap-2"
-                        : "text-white fw-bold nav-link fs-5 d-flex align-items-center gap-2"
-                }
-            >
-                <MdPlaylistAddCircle></MdPlaylistAddCircle> Playlists
-            </NavLink>
             {
                 user ?
-                <button onClick={handleLogout} type="button" className="btn btn-danger fw-bold fs-6">Logout</button> :
+                    <>
+                        <NavLink
+                            to='/favorites'
+                            className={({ isActive }) =>
+                                isActive
+                                    ? "p-2 text-black fw-bold rounded nav-link fs-5 d-flex align-items-center gap-2 bg-secondary-subtle"
+                                    : "text-white fw-bold nav-link fs-5 d-flex align-items-center gap-2 p-2 hover-effect"
+                            }
+                        >
+                            <MdFavorite></MdFavorite> Favorites
+                        </NavLink>
+                        <NavLink
+                            to='/playlists'
+                            className={({ isActive }) =>
+                                isActive
+                                    ? "p-2 text-black fw-bold rounded nav-link fs-5 d-flex align-items-center gap-2 bg-secondary-subtle"
+                                    : "text-white fw-bold nav-link fs-5 d-flex align-items-center gap-2 p-2 hover-effect"
+                            }
+                        >
+                            <MdPlaylistAddCircle></MdPlaylistAddCircle> Playlists
+                        </NavLink>
+                    </>
+                    : <></>
+            }
+            {
+                user ?
+                    <button onClick={handleLogout} type="button" className="btn btn-danger fw-bold fs-6">Logout</button> :
                     <NavLink
                         to='/login'
                         className={({ isActive }) =>
                             isActive
-                                ? "bg-secondary-subtle p-2 text-black fw-bold nav-link rounded fs-5 d-flex align-items-center gap-2"
-                                : "text-white fw-bold nav-link fs-5 d-flex align-items-center gap-2"
+                                ? "p-2 text-black fw-bold rounded nav-link fs-5 d-flex align-items-center gap-2 bg-secondary-subtle"
+                                : "text-white fw-bold nav-link fs-5 d-flex align-items-center gap-2 p-2 hover-effect"
                         }
                     >
                         <FaUser></FaUser> Login
