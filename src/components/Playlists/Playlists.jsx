@@ -19,6 +19,8 @@ const Playlists = () => {
 
     const [playlistId, setPlaylistId] = useState('')
 
+    const [activeButton, setActiveButton] = useState('')
+
     useEffect(() => {
         fetch(`http://localhost:5000/getPlaylistByUser/${user?.email}`)
             .then(res => res.json())
@@ -47,6 +49,8 @@ const Playlists = () => {
                         playlist={playlist}
                         setSongs={setSongs}
                         setPlaylistId={setPlaylistId}
+                        activeButton={activeButton}
+                        setActiveButton={setActiveButton}
                     ></PlaylistButton>)
                 }
             </div>
@@ -56,6 +60,8 @@ const Playlists = () => {
                         key={music._id}
                         music={music}
                         playlistId={playlistId}
+                        songs={songs}
+                        setSongs={setSongs}
                     ></SinglePlaylistMusic>)
                 }
             </div>

@@ -1,11 +1,29 @@
+import { toast } from "react-hot-toast";
 import { FaPlayCircle } from "react-icons/fa";
 import { TiDelete } from "react-icons/ti";
 
 
-const SinglePlaylistMusic = ({music, playlistId}) => {
+const SinglePlaylistMusic = ({ music, playlistId, songs, setSongs }) => {
 
-    const handleDelete = () => {
-        console.log(playlistId)
+    const handleDelete = musicId => {
+        fetch('http://localhost:5000/deleteFromPlaylist', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: playlistId,
+                musicId
+            })
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.modifiedCount > 0) {
+                    toast.success("Successfully removed from the playlist")
+                    const remaining = songs.filter(song => song._id !== musicId)
+                    setSongs(remaining)
+                }
+            })
     }
 
     return (
@@ -25,7 +43,7 @@ const SinglePlaylistMusic = ({music, playlistId}) => {
                             <a className='fs-3' href={music.audio} target='blank'><FaPlayCircle></FaPlayCircle></a>
                         </div>
                         <div>
-                            <button onClick={handleDelete} className='btn text-danger fs-2'><TiDelete></TiDelete></button>
+                            <button onClick={() => handleDelete(music._id)} className='btn text-danger fs-2'><TiDelete></TiDelete></button>
                         </div>
                     </div>
                 </div>
