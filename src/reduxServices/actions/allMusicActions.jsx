@@ -5,7 +5,7 @@ import { GET_ALL_MUSIC, GET_ALL_MUSIC_FAILED, GET_ALL_MUSIC_SUCCESS } from "../c
 const getAllMusic = () => async (dispatch) => {
     dispatch({ type: GET_ALL_MUSIC })
     try {
-        fetch("http://localhost:5000/allMusicFeatured")
+        fetch("https://audio-vibe-server.vercel.app/allMusicFeatured")
             .then(res => res.json())
             .then(data => {
                 dispatch({ type: GET_ALL_MUSIC_SUCCESS, payload: data })

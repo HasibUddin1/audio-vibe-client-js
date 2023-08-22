@@ -77,7 +77,7 @@ const SignUp = () => {
                     <Link className="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" to='/login'>Already have an account?</Link>
                 </div>
                 <input className="btn btn-primary" type="submit" value="Sign Up" />
-                {error && <p className="text-danger">{error}</p>}
+                {error && <p className="text-danger fw-bold">{error}</p>}
             </form>
         </div>
     );

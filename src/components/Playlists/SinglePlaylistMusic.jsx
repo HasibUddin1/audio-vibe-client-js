@@ -7,7 +7,7 @@ const SinglePlaylistMusic = ({ music, playlistId, songs, setSongs }) => {
 
     const handleDelete = musicId => {
         console.log(playlistId, musicId)
-        fetch('http://localhost:5000/deleteFromPlaylist', {
+        fetch('https://audio-vibe-server.vercel.app/deleteFromPlaylist', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

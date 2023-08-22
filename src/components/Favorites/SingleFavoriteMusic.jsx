@@ -8,7 +8,7 @@ import { toast } from "react-hot-toast";
 const SingleFavoriteMusic = ({ music, allMusic, setAllMusic }) => {
 
     const handleDelete = id => {
-        fetch(`http://localhost:5000/deleteFromFavorites/${id}`, {
+        fetch(`https://audio-vibe-server.vercel.app/deleteFromFavorites/${id}`, {
             method: 'DELETE'
         })
         .then(res => res.json())

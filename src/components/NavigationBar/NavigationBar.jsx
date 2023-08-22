@@ -29,7 +29,7 @@ const NavigationBar = () => {
     return (
         <div className="bg-primary d-flex flex-column full-height pt-5 align-items-center gap-3 border border-primary navigation-container position-sticky">
             {
-                user ?
+                user?.displayName ?
                     <h5 className="text-white fw-bold">Welcome, {user?.displayName}</h5> :
                     <></>
             }

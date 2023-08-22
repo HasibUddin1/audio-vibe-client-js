@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import Swal from "sweetalert2";
 import { AuthContext } from "../../providers/AuthProviders";
 
@@ -7,6 +7,8 @@ import { AuthContext } from "../../providers/AuthProviders";
 const Login = () => {
 
     const { signIn } = useContext(AuthContext)
+
+    const [error, setError] = useState('')
 
     const navigate = useNavigate()
 
@@ -17,6 +19,7 @@ const Login = () => {
         const email = form.email.value
         const password = form.password.value
 
+        setError('')
         signIn(email, password)
             .then((result) => {
                 const loggedUser = result.user
@@ -31,6 +34,9 @@ const Login = () => {
             })
             .catch((error) => {
                 console.log(error)
+                if(error.message === 'Firebase: Error (auth/wrong-password).'){
+                    setError('Your credentials do not match')
+                }
             })
     }
 
@@ -47,6 +53,7 @@ const Login = () => {
                     <Link className="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" to='/signUp'>New to this site?</Link>
                 </div>
                 <input className="btn btn-primary" type="submit" value="Login" />
+                {error && <p className="text-danger fw-bold">{error}</p>}
             </form>
         </div>
     );

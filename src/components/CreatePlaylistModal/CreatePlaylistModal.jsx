@@ -31,7 +31,7 @@ const CreatePlaylistModal = (props) => {
             songs: []
         }
 
-        fetch('http://localhost:5000/createAPlaylist', {
+        fetch('https://audio-vibe-server.vercel.app/createAPlaylist', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

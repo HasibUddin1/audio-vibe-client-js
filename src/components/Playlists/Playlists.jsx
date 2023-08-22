@@ -22,7 +22,7 @@ const Playlists = () => {
     const [activeButton, setActiveButton] = useState('')
 
     useEffect(() => {
-        fetch(`http://localhost:5000/getPlaylistByUser/${user?.email}`)
+        fetch(`https://audio-vibe-server.vercel.app/getPlaylistByUser/${user?.email}`)
             .then(res => res.json())
             .then(data => setPlaylists(data))
     }, [user])
@@ -54,17 +54,22 @@ const Playlists = () => {
                     ></PlaylistButton>)
                 }
             </div>
-            <div className="container-fluid all-music-container mt-5">
-                {
-                    songs.map(music => <SinglePlaylistMusic
-                        key={music._id}
-                        music={music}
-                        playlistId={playlistId}
-                        songs={songs}
-                        setSongs={setSongs}
-                    ></SinglePlaylistMusic>)
-                }
-            </div>
+            {
+                songs.length === 0 ?
+                <h3 className="text-center p-5">You can create your own playlist and add songs to that playlist. You can also view your playlist songs by clicking on your playlist</h3>
+                :
+                    <div className="container-fluid all-music-container mt-5">
+                        {
+                            songs.map(music => <SinglePlaylistMusic
+                                key={music._id}
+                                music={music}
+                                playlistId={playlistId}
+                                songs={songs}
+                                setSongs={setSongs}
+                            ></SinglePlaylistMusic>)
+                        }
+                    </div>
+            }
         </div>
     );
 };

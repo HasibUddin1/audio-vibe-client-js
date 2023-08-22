@@ -5,6 +5,7 @@ import { useContext } from 'react';
 import { AuthContext } from '../../providers/AuthProviders';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 
 const SingleMusic = ({ music, handleShow, getSingleMusic }) => {
 
@@ -27,7 +28,7 @@ const SingleMusic = ({ music, handleShow, getSingleMusic }) => {
         }
 
         if (user) {
-            fetch("http://localhost:5000/favoriteMusic", {
+            fetch("https://audio-vibe-server.vercel.app/favoriteMusic", {
                 method: 'POST',
                 headers: {
                     "content-type": "application/json"
@@ -38,21 +39,11 @@ const SingleMusic = ({ music, handleShow, getSingleMusic }) => {
                 .then(data => {
                     // console.log(data)
                     if (data.insertedId) {
-                        Swal.fire({
-                            title: 'Success',
-                            text: 'This music has been added to your favorites',
-                            icon: 'success',
-                            confirmButtonText: 'Ok'
-                        })
+                        toast.success("Successfully added to favorites")
                     }
 
                     if (data.message) {
-                        Swal.fire({
-                            title: '',
-                            text: data.message,
-                            icon: 'error',
-                            confirmButtonText: 'Ok'
-                        })
+                        toast.error(data.message)
                     }
                 })
         }
