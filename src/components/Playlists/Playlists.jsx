@@ -6,7 +6,7 @@ import { Button } from "react-bootstrap";
 import CreatePlaylistModal from "../CreatePlaylistModal/CreatePlaylistModal";
 import { AuthContext } from "../../providers/AuthProviders";
 import PlaylistButton from "./PlaylistButton";
-import SingleSearchMusic from "../Search/SingleSearchMusic";
+import SinglePlaylistMusic from "./SinglePlaylistMusic";
 
 const Playlists = () => {
     const [modalShow, setModalShow] = useState(false);
@@ -16,6 +16,8 @@ const Playlists = () => {
     const [playlists, setPlaylists] = useState([])
 
     const [songs, setSongs] = useState([])
+
+    const [playlistId, setPlaylistId] = useState('')
 
     useEffect(() => {
         fetch(`http://localhost:5000/getPlaylistByUser/${user?.email}`)
@@ -44,15 +46,17 @@ const Playlists = () => {
                         key={playlist._id}
                         playlist={playlist}
                         setSongs={setSongs}
+                        setPlaylistId={setPlaylistId}
                     ></PlaylistButton>)
                 }
             </div>
             <div className="container-fluid all-music-container mt-5">
                 {
-                    songs.map(music => <SingleSearchMusic
+                    songs.map(music => <SinglePlaylistMusic
                         key={music._id}
                         music={music}
-                    ></SingleSearchMusic>)
+                        playlistId={playlistId}
+                    ></SinglePlaylistMusic>)
                 }
             </div>
         </div>
