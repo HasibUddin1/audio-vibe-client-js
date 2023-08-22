@@ -6,6 +6,7 @@ import { TiDelete } from "react-icons/ti";
 const SinglePlaylistMusic = ({ music, playlistId, songs, setSongs }) => {
 
     const handleDelete = musicId => {
+        console.log(playlistId, musicId)
         fetch('http://localhost:5000/deleteFromPlaylist', {
             method: 'POST',
             headers: {
@@ -22,6 +23,10 @@ const SinglePlaylistMusic = ({ music, playlistId, songs, setSongs }) => {
                     toast.success("Successfully removed from the playlist")
                     const remaining = songs.filter(song => song._id !== musicId)
                     setSongs(remaining)
+                }
+
+                if(data.message){
+                    toast.error(data.message)
                 }
             })
     }
