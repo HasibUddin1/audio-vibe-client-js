@@ -24,19 +24,19 @@ const AddToPlaylistModal = ({ show, handleClose, singleMusic }) => {
             },
             body: JSON.stringify({ id, music: singleMusic })
         })
-        .then(res => res.json())
-        .then(data => {
-            if(data.modifiedCount > 0){
-                toast.success("Successfully added to playlist")
-            }
+            .then(res => res.json())
+            .then(data => {
+                if (data.modifiedCount > 0) {
+                    toast.success("Successfully added to playlist")
+                }
 
-            if(data.message){
-                toast.error(data.message)
-            }
-        })
-        .catch(error => {
-            console.log(error.message)
-        })
+                if (data.message) {
+                    toast.error(data.message)
+                }
+            })
+            .catch(error => {
+                console.log(error.message)
+            })
     }
 
     return (
@@ -47,11 +47,14 @@ const AddToPlaylistModal = ({ show, handleClose, singleMusic }) => {
             <Modal.Body>
                 <div>
                     {
-                        playlists.map(playlist => <button
-                            onClick={() => handleAddToPlaylist(playlist._id)}
-                            key={playlist._id}
-                            className="btn w-50 btn-success rounded-pill fw-bold col-4 m-2"
-                        >{playlist.playlistName}</button>)
+                        playlists.length === 0 ?
+                        <h1>You must create playlist</h1>
+                        :
+                            playlists.map(playlist => <button
+                                onClick={() => handleAddToPlaylist(playlist._id)}
+                                key={playlist._id}
+                                className="btn w-50 btn-success rounded-pill fw-bold col-4 m-2"
+                            >{playlist.playlistName}</button>)
                     }
                 </div>
             </Modal.Body>
