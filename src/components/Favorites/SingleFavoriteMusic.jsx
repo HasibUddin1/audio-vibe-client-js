@@ -2,26 +2,33 @@ import { FaPlayCircle } from "react-icons/fa";
 import { TiDelete } from "react-icons/ti";
 import './SingleFavoriteMusic.css'
 import { toast } from "react-hot-toast";
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProviders";
+import { useDispatch } from "react-redux";
+import getFavoriteMusic from "../../reduxServices/actions/FavoriteMusicAction";
 
 
 
-const SingleFavoriteMusic = ({ music, allMusic, setAllMusic }) => {
+const SingleFavoriteMusic = ({ music }) => {
+
+    const { user } = useContext(AuthContext)
+
+    const dispatch = useDispatch()
 
     const handleDelete = id => {
         fetch(`https://audio-vibe-server.vercel.app/deleteFromFavorites/${id}`, {
             method: 'DELETE'
         })
-        .then(res => res.json())
-        .then(data => {
-            if(data.deletedCount > 0){
-                toast.success("Successfully deleted from favorites")
-                const remaining = allMusic.filter(music => music._id !== id)
-                setAllMusic(remaining)
-            }
-        })
-        .catch(error => {
-            console.log(error)
-        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount > 0) {
+                    toast.success("Successfully deleted from favorites")
+                    dispatch(getFavoriteMusic(user?.email))
+                }
+            })
+            .catch(error => {
+                console.log(error)
+            })
     }
 
     return (

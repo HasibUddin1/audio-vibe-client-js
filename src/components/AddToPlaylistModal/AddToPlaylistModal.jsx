@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { AuthContext } from "../../providers/AuthProviders";
 import { toast } from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 
 const AddToPlaylistModal = ({ show, handleClose, singleMusic }) => {
@@ -48,7 +49,7 @@ const AddToPlaylistModal = ({ show, handleClose, singleMusic }) => {
                 <div>
                     {
                         playlists.length === 0 ?
-                        <h1>You must create playlist</h1>
+                        <h4 className="text-center">You must create a playlist. Go to <Link to='/playlists'>Playlists</Link></h4>
                         :
                             playlists.map(playlist => <button
                                 onClick={() => handleAddToPlaylist(playlist._id)}

@@ -1,21 +1,28 @@
 import './SingleMusic.css'
-import { MdFavorite, MdPlaylistAddCircle } from "react-icons/md";
+import { MdFavorite, MdPlaylistAddCircle, MdFavoriteBorder } from "react-icons/md";
 import { FaPlayCircle } from "react-icons/fa";
 import { useContext } from 'react';
 import { AuthContext } from '../../providers/AuthProviders';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
+import { useDispatch, useSelector } from "react-redux";
+import getFavoriteMusic from '../../reduxServices/actions/FavoriteMusicAction';
 
 const SingleMusic = ({ music, handleShow, getSingleMusic }) => {
 
     const { user } = useContext(AuthContext)
+
+    const dispatch = useDispatch()
+
+    const { favoriteMusic } = useSelector(state => state.favoriteMusic)
 
     const navigate = useNavigate()
 
     const handleAddToFavorite = () => {
 
         const favoriteMusicInfo = {
+            musicId: music._id,
             title: music.title,
             artist: music.artist,
             duration: music.duration,
@@ -40,6 +47,7 @@ const SingleMusic = ({ music, handleShow, getSingleMusic }) => {
                     // console.log(data)
                     if (data.insertedId) {
                         toast.success("Successfully added to favorites")
+                        
                     }
 
                     if (data.message) {
@@ -83,7 +91,13 @@ const SingleMusic = ({ music, handleShow, getSingleMusic }) => {
                             handleShow(music)
                             getSingleMusic(music)
                         }} className='border-0 bg-transparent fs-2 text-secondary'><MdPlaylistAddCircle></MdPlaylistAddCircle></button>
-                        <button onClick={handleAddToFavorite} className='border-0 bg-transparent fs-2 text-danger'><MdFavorite></MdFavorite></button>
+                        <button onClick={() => {
+                            handleAddToFavorite()
+                        }} className='border-0 bg-transparent fs-2 text-danger'>{
+                                favoriteMusic ?
+                                    <MdFavorite></MdFavorite> :
+                                    <MdFavoriteBorder></MdFavoriteBorder>
+                            }</button>
                     </div>
                 </div>
             </div>

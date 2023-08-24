@@ -1,9 +1,11 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { Slide } from "react-awesome-reveal";
 
 import { AuthContext } from "../../providers/AuthProviders";
 import SingleFavoriteMusic from "./SingleFavoriteMusic";
 import useTitle from "../../hooks/useTitle";
+import { useDispatch, useSelector } from "react-redux";
+import getFavoriteMusic from "../../reduxServices/actions/FavoriteMusicAction";
 
 
 
@@ -13,13 +15,13 @@ const Favorites = () => {
 
     const { user } = useContext(AuthContext)
 
-    const [allMusic, setAllMusic] = useState([])
+    const { favoriteMusic } = useSelector(state => state.favoriteMusic)
+
+    const dispatch = useDispatch()
 
     useEffect(() => {
-        fetch(`https://audio-vibe-server.vercel.app/favoriteMusicByUser/${user?.email}`)
-            .then(res => res.json())
-            .then(data => setAllMusic(data))
-    }, [user])
+        dispatch(getFavoriteMusic(user?.email))
+    }, [user, dispatch])
 
     return (
         <div>
@@ -27,18 +29,15 @@ const Favorites = () => {
                 <h3 className="text-center fw-bold mt-3">Your Favorite Music</h3>
             </Slide>
             {
-                allMusic.length === 0 ?
+                favoriteMusic.length === 0 ?
                     <h2 className="text-center">Your did not add any music to your Favorites</h2>
                     :
                     <div className="all-music-container p-2 mt-3 overflow-hidden">
                         {
-                            allMusic.map((music) => <SingleFavoriteMusic
+                            favoriteMusic.map((music) => <SingleFavoriteMusic
                                 key={music._id}
                                 music={music}
-                                allMusic={allMusic}
-                                setAllMusic={setAllMusic}
                             >
-
                             </SingleFavoriteMusic>)
                         }
                     </div>
