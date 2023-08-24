@@ -3,17 +3,35 @@ import { useContext, useState } from 'react';
 import Swal from "sweetalert2";
 import { AuthContext } from "../../providers/AuthProviders";
 import useTitle from "../../hooks/useTitle";
+import { FcGoogle } from "react-icons/fc";
 
 
 const SignUp = () => {
 
     useTitle("Sign Up")
 
-    const { createUser, updateUsersProfile } = useContext(AuthContext)
+    const { createUser, updateUsersProfile, googleLogin } = useContext(AuthContext)
 
     const [error, setError] = useState('')
 
     const navigate = useNavigate()
+
+    const handleGoogleLogin = () => {
+        googleLogin()
+            .then(() => {
+                Swal.fire({
+                    title: 'Success',
+                    text: 'You have successfully logged in',
+                    icon: 'success',
+                    confirmButtonText: 'Ok'
+                })
+                navigate('/')
+            })
+            .catch(error => {
+                console.log(error)
+                setError(error.message)
+            })
+    }
 
     const handleSignUp = (event) => {
         event.preventDefault()
@@ -82,6 +100,14 @@ const SignUp = () => {
                 <input className="btn btn-primary" type="submit" value="Sign Up" />
                 {error && <p className="text-danger fw-bold">{error}</p>}
             </form>
+            <hr />
+            <button
+                onClick={handleGoogleLogin}
+                type="button"
+                className="btn btn-secondary mx-auto"
+            >
+                <FcGoogle className="text-3xl mr-3" /> Continue with google
+            </button>
         </div>
     );
 };
