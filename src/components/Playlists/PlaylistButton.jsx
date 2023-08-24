@@ -15,6 +15,7 @@ const PlaylistButton = ({ playlist, setSongs, setPlaylistId, activeButton, setAc
                 toast.success("Playlist has been deleted successfully")
                 const remaining = playlists.filter(playlist => playlist._id !== id)
                 setPlaylists(remaining)
+                setSongs([])
             }
         })
     }
