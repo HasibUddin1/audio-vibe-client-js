@@ -7,8 +7,6 @@ import Swal from "sweetalert2";
 
 const CreatePlaylistModal = (props) => {
 
-    const {playlists, setPlaylists} = props
-
     const playlistRef = useRef()
 
     const [error, setError] = useState('')
@@ -50,8 +48,7 @@ const CreatePlaylistModal = (props) => {
                     text: 'Your playlist has been created',
                     icon: 'success',
                 })
-                const newPlaylists = [...playlists, newPlaylistInfo]
-                setPlaylists(newPlaylists)
+                window.location.reload()
             }
         })
     }

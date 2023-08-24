@@ -43,8 +43,6 @@ const Playlists = () => {
                     <CreatePlaylistModal
                         show={modalShow}
                         onHide={() => setModalShow(false)}
-                        playlists={playlists}
-                        setPlaylists={setPlaylists}
                     />
                 </div>
             </Slide>
