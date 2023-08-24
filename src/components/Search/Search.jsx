@@ -6,9 +6,12 @@ import Swal from "sweetalert2";
 import { AuthContext } from "../../providers/AuthProviders";
 import { useNavigate } from "react-router-dom";
 import SingleMusic from "../SingleMusic/SingleMusic";
+import useTitle from "../../hooks/useTitle";
 
 
 const Search = () => {
+
+    useTitle("Search")
 
     const { user } = useContext(AuthContext)
     const navigate = useNavigate()

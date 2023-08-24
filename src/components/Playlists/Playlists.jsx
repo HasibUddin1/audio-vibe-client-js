@@ -7,8 +7,12 @@ import CreatePlaylistModal from "../CreatePlaylistModal/CreatePlaylistModal";
 import { AuthContext } from "../../providers/AuthProviders";
 import PlaylistButton from "./PlaylistButton";
 import SinglePlaylistMusic from "./SinglePlaylistMusic";
+import useTitle from "../../hooks/useTitle";
 
 const Playlists = () => {
+
+    useTitle("Playlists")
+
     const [modalShow, setModalShow] = useState(false);
 
     const { user } = useContext(AuthContext)
@@ -39,6 +43,8 @@ const Playlists = () => {
                     <CreatePlaylistModal
                         show={modalShow}
                         onHide={() => setModalShow(false)}
+                        playlists={playlists}
+                        setPlaylists={setPlaylists}
                     />
                 </div>
             </Slide>

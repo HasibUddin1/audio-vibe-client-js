@@ -14,10 +14,13 @@ import AddToPlaylistModal from "../AddToPlaylistModal/AddToPlaylistModal";
 import { AuthContext } from "../../providers/AuthProviders";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import useTitle from "../../hooks/useTitle";
 
 
 
 const Home = () => {
+
+    useTitle("Home")
 
     const { allMusic } = useSelector(state => state.allMusic)
 

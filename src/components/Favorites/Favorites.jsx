@@ -3,10 +3,13 @@ import { Slide } from "react-awesome-reveal";
 
 import { AuthContext } from "../../providers/AuthProviders";
 import SingleFavoriteMusic from "./SingleFavoriteMusic";
+import useTitle from "../../hooks/useTitle";
 
 
 
 const Favorites = () => {
+
+    useTitle("Favorites")
 
     const { user } = useContext(AuthContext)
 
