@@ -57,6 +57,8 @@ const Playlists = () => {
                         setPlaylistId={setPlaylistId}
                         activeButton={activeButton}
                         setActiveButton={setActiveButton}
+                        playlists={playlists}
+                        setPlaylists={setPlaylists}
                     ></PlaylistButton>)
                 }
             </div>
