@@ -7,6 +7,8 @@ import { AuthContext } from "../../providers/AuthProviders";
 import { useNavigate } from "react-router-dom";
 import SingleMusic from "../SingleMusic/SingleMusic";
 import useTitle from "../../hooks/useTitle";
+import { useDispatch, useSelector } from "react-redux";
+import getFavoriteMusic from "../../reduxServices/actions/FavoriteMusicAction";
 
 
 const Search = () => {
@@ -19,6 +21,11 @@ const Search = () => {
     const [singleMusic, setSingleMusic] = useState(null)
     const [allMusic, setAllMusic] = useState([])
     const [show, setShow] = useState(false);
+
+    const dispatch = useDispatch()
+
+    const { favoriteMusic } = useSelector(state => state.favoriteMusic)
+
 
 
     const handleClose = () => setShow(false);
@@ -46,6 +53,10 @@ const Search = () => {
     const getSingleMusic = music => {
         setSingleMusic(music)
     }
+
+    useEffect(() => {
+        dispatch(getFavoriteMusic(user?.email))
+    }, [dispatch, user])
 
     useEffect(() => {
         if (searchText) {
@@ -92,6 +103,7 @@ const Search = () => {
                         music={music}
                         handleShow={handleShow}
                         getSingleMusic={getSingleMusic}
+                        favoriteMusic={favoriteMusic}
                     ></SingleMusic>)
                 }
             </div>

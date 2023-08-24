@@ -15,6 +15,7 @@ import { AuthContext } from "../../providers/AuthProviders";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import useTitle from "../../hooks/useTitle";
+import getFavoriteMusic from "../../reduxServices/actions/FavoriteMusicAction";
 
 
 
@@ -30,12 +31,14 @@ const Home = () => {
     const { user } = useContext(AuthContext)
     const navigate = useNavigate()
 
+    const { favoriteMusic } = useSelector(state => state.favoriteMusic)
+
     const handleClose = () => setShow(false);
     const handleShow = () => {
         if (user) {
             setShow(true)
         }
-        else{
+        else {
             Swal.fire({
                 title: '',
                 text: "You must be logged in to add to playlist",
@@ -58,6 +61,11 @@ const Home = () => {
     useEffect(() => {
         dispatch(getAllMusic())
     }, [dispatch])
+
+    useEffect(() => {
+        dispatch(getFavoriteMusic(user?.email))
+    }, [dispatch, user])
+
     return (
         <div>
             <img className='w-100' src={bannerImage} alt="" />
@@ -92,6 +100,7 @@ const Home = () => {
                                 music={music}
                                 handleShow={handleShow}
                                 getSingleMusic={getSingleMusic}
+                                favoriteMusic={favoriteMusic}
                             ></SingleMusic>
                         </SwiperSlide>)
                     }

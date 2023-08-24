@@ -6,16 +6,18 @@ import { AuthContext } from '../../providers/AuthProviders';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from 'react-redux';
 import getFavoriteMusic from '../../reduxServices/actions/FavoriteMusicAction';
 
-const SingleMusic = ({ music, handleShow, getSingleMusic }) => {
+
+
+const SingleMusic = ({ music, handleShow, getSingleMusic, favoriteMusic }) => {
 
     const { user } = useContext(AuthContext)
 
     const dispatch = useDispatch()
 
-    const { favoriteMusic } = useSelector(state => state.favoriteMusic)
+    const isFavorite = favoriteMusic.some(favMusic => favMusic.musicId === music._id && favMusic.userEmail === user?.email)
 
     const navigate = useNavigate()
 
@@ -47,7 +49,7 @@ const SingleMusic = ({ music, handleShow, getSingleMusic }) => {
                     // console.log(data)
                     if (data.insertedId) {
                         toast.success("Successfully added to favorites")
-                        
+                        dispatch(getFavoriteMusic(user?.email))
                     }
 
                     if (data.message) {
@@ -94,7 +96,7 @@ const SingleMusic = ({ music, handleShow, getSingleMusic }) => {
                         <button onClick={() => {
                             handleAddToFavorite()
                         }} className='border-0 bg-transparent fs-2 text-danger'>{
-                                favoriteMusic ?
+                                isFavorite ?
                                     <MdFavorite></MdFavorite> :
                                     <MdFavoriteBorder></MdFavoriteBorder>
                             }</button>
