@@ -1,0 +1,16 @@
+.background-color-login {
+    background-color: lightgray;
+    border-radius: 12px;
+}
+
+.login-image {
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+}
+
+@media screen and (max-width: 992px) {
+    .login-image {
+        border-bottom-left-radius: 0px;
+        border-top-right-radius: 12px;
+    }
+}

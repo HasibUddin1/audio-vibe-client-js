@@ -3,7 +3,9 @@ import { useContext, useState } from 'react';
 import Swal from "sweetalert2";
 import { AuthContext } from "../../providers/AuthProviders";
 import useTitle from "../../hooks/useTitle";
+import loginImage from '../../assets/images/login-image.jpg'
 import { FcGoogle } from "react-icons/fc";
+import './Login.css'
 
 
 const Login = () => {
@@ -60,28 +62,37 @@ const Login = () => {
     }
 
     return (
-        <div className="px-5 mt-5">
-            <form onSubmit={handleLogin}>
-                <div className="mb-3">
-                    <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
-                    <input type="email" name="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Your Email" />
+        <div className="d-lg-flex gap-5 align-items-center justify-content-between w-75 mx-auto mt-5 background-color-login">
+            <div className="w-100 w-lg-50">
+                <img className="w-100 h-100 login-image" src={loginImage} alt="" />
+            </div>
+            <div className="mt-5 w-100 w-lg-50 px-5">
+                <form onSubmit={handleLogin}>
+                    <div className="mb-3">
+                        <label htmlFor="exampleInputEmail1" className="form-label fw-bold">Email address</label>
+                        <input type="email" name="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Your Email" />
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="exampleInputPassword1" className="form-label fw-bold">Password</label>
+                        <input type="password" name="password" className="form-control" id="exampleInputPassword1" placeholder="Your Password" />
+                        <Link className="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" to='/signUp'>New to this site?</Link>
+                    </div>
+                    <div className="text-center">
+                        <input className="btn btn-primary w-50" type="submit" value="Login" />
+                    </div>
+                    {error && <p className="text-danger fw-bold">{error}</p>}
+                </form>
+                <hr />
+                <div className="text-center">
+                    <button
+                        onClick={handleGoogleLogin}
+                        type="button"
+                        className="btn btn-secondary mx-auto w-50"
+                    >
+                        <FcGoogle className="text-3xl mr-3" /> Continue with google
+                    </button>
                 </div>
-                <div className="mb-3">
-                    <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
-                    <input type="password" name="password" className="form-control" id="exampleInputPassword1" placeholder="Your Password" />
-                    <Link className="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" to='/signUp'>New to this site?</Link>
-                </div>
-                <input className="btn btn-primary" type="submit" value="Login" />
-                {error && <p className="text-danger fw-bold">{error}</p>}
-            </form>
-            <hr />
-            <button
-                onClick={handleGoogleLogin}
-                type="button"
-                className="btn btn-secondary mx-auto"
-            >
-                <FcGoogle className="text-3xl mr-3" /> Continue with google
-            </button>
+            </div>
         </div>
     );
 };
