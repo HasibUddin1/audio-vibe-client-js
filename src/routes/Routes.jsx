@@ -28,16 +28,16 @@ const router = createBrowserRouter([
             {
                 path: 'playlists',
                 element: <PrivateRoute><Playlists></Playlists></PrivateRoute>
-            },
-            {
-                path: 'login',
-                element: <Login></Login>
-            },
-            {
-                path: 'signUp',
-                element: <SignUp></SignUp>
             }
         ]
+    },
+    {
+        path: 'login',
+        element: <Login></Login>
+    },
+    {
+        path: 'signUp',
+        element: <SignUp></SignUp>
     }
 ])
 
