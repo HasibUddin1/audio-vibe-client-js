@@ -75,6 +75,9 @@ const SignUp = () => {
                     })
                     .catch((error) => {
                         console.log(error)
+                        if(error){
+                            setError("We are unable to create your profile")
+                        }
                     })
             })
             .catch((error) => {
@@ -105,7 +108,6 @@ const SignUp = () => {
                     <div className="text-center">
                         <input className="btn btn-primary w-50" type="submit" value="Sign Up" />
                     </div>
-                    {error && <p className="text-danger fw-bold">{error}</p>}
                 </form>
                 <hr />
                 <div className="text-center">
@@ -117,6 +119,7 @@ const SignUp = () => {
                         <FcGoogle className="text-3xl mr-3" /> Continue with google
                     </button>
                 </div>
+                {error && <p className="text-danger text-center fw-bold">{error}</p>}
             </div>
         </div>
     );

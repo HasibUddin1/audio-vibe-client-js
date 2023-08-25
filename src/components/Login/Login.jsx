@@ -38,7 +38,7 @@ const Login = () => {
             })
             .catch((error) => {
                 console.log(error)
-                if (error.message === 'Firebase: Error (auth/wrong-password).') {
+                if (error.message) {
                     setError('Your credentials do not match')
                 }
             })
@@ -80,7 +80,6 @@ const Login = () => {
                     <div className="text-center">
                         <input className="btn btn-primary w-50" type="submit" value="Login" />
                     </div>
-                    {error && <p className="text-danger fw-bold">{error}</p>}
                 </form>
                 <hr />
                 <div className="text-center">
@@ -92,6 +91,7 @@ const Login = () => {
                         <FcGoogle className="text-3xl mr-3" /> Continue with google
                     </button>
                 </div>
+                {error && <p className="text-danger text-center fw-bold">{error}</p>}
             </div>
         </div>
     );
