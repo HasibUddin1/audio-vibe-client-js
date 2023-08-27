@@ -30,7 +30,7 @@ const Favorites = () => {
             </Slide>
             {
                 favoriteMusic.length === 0 ?
-                    <h2 className="text-center">Your did not add any music to your Favorites</h2>
+                    <h2 className="text-center">You did not add any music to your Favorites</h2>
                     :
                     <div className="all-music-container p-2 mt-3 overflow-hidden">
                         {
