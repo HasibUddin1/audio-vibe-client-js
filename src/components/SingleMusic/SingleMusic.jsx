@@ -52,7 +52,7 @@ const SingleMusic = ({ music, handleShow, getSingleMusic, favoriteMusic }) => {
                     if (data.insertedId) {
                         toast.success("Successfully added to favorites")
                         dispatch(getFavoriteMusic(user?.email))
-                        fetch(`http://localhost:5000/addingFavoriteCount/${music._id}`, {
+                        fetch(`https://audio-vibe-server.vercel.app/addingFavoriteCount/${music._id}`, {
                             method: 'PUT',
                             headers: {
                                 'content-type': 'application/json'

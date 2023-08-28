@@ -25,7 +25,7 @@ const SingleFavoriteMusic = ({ music, allMusic }) => {
                 if (data.deletedCount > 0) {
                     toast.success("Successfully deleted from favorites")
                     dispatch(getFavoriteMusic(user?.email))
-                    fetch(`http://localhost:5000/deductingFavoriteCount/${music.musicId}`, {
+                    fetch(`https://audio-vibe-server.vercel.app/deductingFavoriteCount/${music.musicId}`, {
                         method: 'PUT',
                         headers: {
                             'content-type': 'application/json'
