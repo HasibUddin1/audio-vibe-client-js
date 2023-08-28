@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import getFavoriteMusic from '../../reduxServices/actions/FavoriteMusicAction';
+import getAllMusic from '../../reduxServices/actions/allMusicActions';
 
 
 
@@ -21,7 +22,7 @@ const SingleMusic = ({ music, handleShow, getSingleMusic, favoriteMusic }) => {
 
     const navigate = useNavigate()
 
-    const handleAddToFavorite = () => {
+    const handleAddToFavorite = (music) => {
 
         const favoriteMusicInfo = {
             musicId: music._id,
@@ -33,7 +34,8 @@ const SingleMusic = ({ music, handleShow, getSingleMusic, favoriteMusic }) => {
             audio: music.audio,
             status: music.status,
             userName: user?.displayName,
-            userEmail: user?.email
+            userEmail: user?.email,
+            likes: music.likes
         }
 
         if (user) {
@@ -50,6 +52,19 @@ const SingleMusic = ({ music, handleShow, getSingleMusic, favoriteMusic }) => {
                     if (data.insertedId) {
                         toast.success("Successfully added to favorites")
                         dispatch(getFavoriteMusic(user?.email))
+                        fetch(`http://localhost:5000/addingFavoriteCount/${music._id}`, {
+                            method: 'PUT',
+                            headers: {
+                                'content-type': 'application/json'
+                            },
+                            body: JSON.stringify(music)
+                        })
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data.modifiedCount > 0) {
+                                    dispatch(getAllMusic())
+                                }
+                            })
                     }
 
                     if (data.message) {
@@ -76,7 +91,7 @@ const SingleMusic = ({ music, handleShow, getSingleMusic, favoriteMusic }) => {
 
 
     return (
-        <div className="card mb-3 hover-effect">
+        <div className="card mb-3 hover-effect pe-1">
             <div className="row g-0">
                 <div className="col-md-4">
                     <img src={music.image} className="img-fluid rounded-start h-100" alt="..." />
@@ -87,19 +102,20 @@ const SingleMusic = ({ music, handleShow, getSingleMusic, favoriteMusic }) => {
                         <p className="card-text">Singer: {music.artist}</p>
                         <p className="card-text"><small className="text-body-secondary">Released Year: {music.year}</small></p>
                     </div>
-                    <div className='d-flex align-items-center justify-content-end'>
-                        <a className='fs-3' href={music.audio} target='blank'><FaPlayCircle></FaPlayCircle></a>
+                    <div className='buttons-container'>
+                        <a className='width-fit-content fs-2 text-center padding-top border-0' href={music.audio} target='blank'><FaPlayCircle></FaPlayCircle></a>
                         <button onClick={() => {
                             handleShow(music)
                             getSingleMusic(music)
-                        }} className='border-0 bg-transparent fs-2 text-secondary'><MdPlaylistAddCircle></MdPlaylistAddCircle></button>
+                        }} className='bg-transparent text-secondary width-fit-content fs-2 border-0'><MdPlaylistAddCircle></MdPlaylistAddCircle></button>
                         <button onClick={() => {
-                            handleAddToFavorite()
-                        }} className='border-0 bg-transparent fs-2 text-danger'>{
+                            handleAddToFavorite(music)
+                        }} className='bg-transparent text-danger width-fit-content fs-2 border-0'>{
                                 isFavorite ?
                                     <MdFavorite></MdFavorite> :
                                     <MdFavoriteBorder></MdFavoriteBorder>
                             }</button>
+                        <p className='fw-bold width-fit-content fs-5'>{music.likes}</p>
                     </div>
                 </div>
             </div>

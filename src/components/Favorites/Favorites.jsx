@@ -6,6 +6,7 @@ import SingleFavoriteMusic from "./SingleFavoriteMusic";
 import useTitle from "../../hooks/useTitle";
 import { useDispatch, useSelector } from "react-redux";
 import getFavoriteMusic from "../../reduxServices/actions/FavoriteMusicAction";
+import getAllMusic from "../../reduxServices/actions/allMusicActions";
 
 
 
@@ -15,6 +16,8 @@ const Favorites = () => {
 
     const { user } = useContext(AuthContext)
 
+    const { allMusic } = useSelector(state => state.allMusic)
+
     const { favoriteMusic } = useSelector(state => state.favoriteMusic)
 
     const dispatch = useDispatch()
@@ -22,6 +25,10 @@ const Favorites = () => {
     useEffect(() => {
         dispatch(getFavoriteMusic(user?.email))
     }, [user, dispatch])
+
+    useEffect(() => {
+        dispatch(getAllMusic())
+    }, [dispatch])
 
     return (
         <div>
@@ -37,6 +44,7 @@ const Favorites = () => {
                             favoriteMusic.map((music) => <SingleFavoriteMusic
                                 key={music._id}
                                 music={music}
+                                allMusic={allMusic}
                             >
                             </SingleFavoriteMusic>)
                         }

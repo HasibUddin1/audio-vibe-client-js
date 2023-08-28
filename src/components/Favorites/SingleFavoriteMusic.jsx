@@ -6,17 +6,18 @@ import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProviders";
 import { useDispatch } from "react-redux";
 import getFavoriteMusic from "../../reduxServices/actions/FavoriteMusicAction";
+import getAllMusic from "../../reduxServices/actions/allMusicActions";
 
 
 
-const SingleFavoriteMusic = ({ music }) => {
-
+const SingleFavoriteMusic = ({ music, allMusic }) => {
     const { user } = useContext(AuthContext)
 
     const dispatch = useDispatch()
 
-    const handleDelete = id => {
-        fetch(`https://audio-vibe-server.vercel.app/deleteFromFavorites/${id}`, {
+    const handleDelete = music => {
+        const selectedMusic = allMusic.find(singleMusic => singleMusic._id === music.musicId)
+        fetch(`https://audio-vibe-server.vercel.app/deleteFromFavorites/${music._id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())
@@ -24,6 +25,22 @@ const SingleFavoriteMusic = ({ music }) => {
                 if (data.deletedCount > 0) {
                     toast.success("Successfully deleted from favorites")
                     dispatch(getFavoriteMusic(user?.email))
+                    fetch(`http://localhost:5000/deductingFavoriteCount/${music.musicId}`, {
+                        method: 'PUT',
+                        headers: {
+                            'content-type': 'application/json'
+                        },
+                        body: JSON.stringify(selectedMusic)
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.modifiedCount > 0) {
+                                dispatch(getAllMusic())
+                            }
+                        })
+                        .catch(error => {
+                            console.log(error)
+                        })
                 }
             })
             .catch(error => {
@@ -48,7 +65,7 @@ const SingleFavoriteMusic = ({ music }) => {
                             <a className='fs-3' href={music.audio} target='blank'><FaPlayCircle></FaPlayCircle></a>
                         </div>
                         <div>
-                            <button onClick={() => handleDelete(music._id)} className='btn text-danger fs-2'><TiDelete></TiDelete></button>
+                            <button onClick={() => handleDelete(music)} className='btn text-danger fs-2'><TiDelete></TiDelete></button>
                         </div>
                     </div>
                 </div>

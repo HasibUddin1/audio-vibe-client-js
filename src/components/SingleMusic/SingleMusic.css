@@ -3,3 +3,16 @@
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 200ms;
 }
+
+.buttons-container{
+    display: flex;
+    justify-content: end;
+}
+
+.width-fit-content{
+    width: fit-content;
+    height: fit-content;
+}
+.padding-top{
+    padding-top: 2px;
+}
