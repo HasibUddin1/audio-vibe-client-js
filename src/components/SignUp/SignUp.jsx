@@ -5,6 +5,7 @@ import { AuthContext } from "../../providers/AuthProviders";
 import useTitle from "../../hooks/useTitle";
 import { FcGoogle } from "react-icons/fc";
 import loginImage from '../../assets/images/login-image.jpg'
+import { toast } from "react-hot-toast";
 
 
 const SignUp = () => {
@@ -70,18 +71,46 @@ const SignUp = () => {
                             icon: 'success',
                             confirmButtonText: 'Ok'
                         })
+
+                        const userInfo = {
+                            name: name,
+                            email: email,
+                            role: 'regular'
+                        }
                         setError('')
                         navigate('/')
+
+                        fetch('http://localhost:5000/users', {
+                            method: 'POST',
+                            headers: {
+                                'content-type': 'application/json'
+                            },
+                            body: JSON.stringify(userInfo)
+                        })
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data.insertedId) {
+                                    // added user information to the database
+                                }
+                            })
+                            .catch(error => {
+                                if (error.message) {
+                                    toast.error(error.message)
+                                }
+                            })
                     })
                     .catch((error) => {
                         console.log(error)
-                        if(error){
+                        if (error) {
                             setError("We are unable to create your profile")
                         }
                     })
             })
             .catch((error) => {
                 console.log(error)
+                if(error){
+                    setError("You already created an account with this email")
+                }
             })
     }
 
