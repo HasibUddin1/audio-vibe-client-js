@@ -46,13 +46,40 @@ const Login = () => {
 
     const handleGoogleLogin = () => {
         googleLogin()
-            .then(() => {
+            .then((result) => {
+                const loggedUser = result.user
                 Swal.fire({
                     title: 'Success',
                     text: 'You have successfully logged in',
                     icon: 'success',
                     confirmButtonText: 'Ok'
                 })
+
+                const createdUser = {
+                    name: loggedUser.displayName,
+                    email: loggedUser.email,
+                    role: 'regular'
+                }
+                console.log(createdUser)
+                fetch('http://localhost:5000/users', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(createdUser)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if(data.insertedId){
+                            // added user information to the database
+                        }
+                    })
+                    .catch(error => {
+                        if(error){
+                            // error on adding user information on database
+                        }
+                    })
+
                 navigate('/')
             })
             .catch(error => {
