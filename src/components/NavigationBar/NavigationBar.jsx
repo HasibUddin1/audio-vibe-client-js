@@ -53,32 +53,26 @@ const NavigationBar = () => {
             >
                 <FaSearch></FaSearch> Search
             </NavLink>
-            {
-                user ?
-                    <>
-                        <NavLink
-                            to='/favorites'
-                            className={({ isActive }) =>
-                                isActive
-                                    ? "p-2 text-black fw-bold rounded nav-link fs-5 d-flex align-items-center gap-2 bg-secondary-subtle"
-                                    : "text-white fw-bold nav-link fs-5 d-flex align-items-center gap-2 p-2 hover-effect"
-                            }
-                        >
-                            <MdFavorite></MdFavorite> Favorites
-                        </NavLink>
-                        <NavLink
-                            to='/playlists'
-                            className={({ isActive }) =>
-                                isActive
-                                    ? "p-2 text-black fw-bold rounded nav-link fs-5 d-flex align-items-center gap-2 bg-secondary-subtle"
-                                    : "text-white fw-bold nav-link fs-5 d-flex align-items-center gap-2 p-2 hover-effect"
-                            }
-                        >
-                            <MdPlaylistAddCircle></MdPlaylistAddCircle> Playlists
-                        </NavLink>
-                    </>
-                    : <></>
-            }
+            <NavLink
+                to='/favorites'
+                className={({ isActive }) =>
+                    isActive
+                        ? "p-2 text-black fw-bold rounded nav-link fs-5 d-flex align-items-center gap-2 bg-secondary-subtle"
+                        : "text-white fw-bold nav-link fs-5 d-flex align-items-center gap-2 p-2 hover-effect"
+                }
+            >
+                <MdFavorite></MdFavorite> Favorites
+            </NavLink>
+            <NavLink
+                to='/playlists'
+                className={({ isActive }) =>
+                    isActive
+                        ? "p-2 text-black fw-bold rounded nav-link fs-5 d-flex align-items-center gap-2 bg-secondary-subtle"
+                        : "text-white fw-bold nav-link fs-5 d-flex align-items-center gap-2 p-2 hover-effect"
+                }
+            >
+                <MdPlaylistAddCircle></MdPlaylistAddCircle> Playlists
+            </NavLink>
             {
                 user ?
                     <button onClick={handleLogout} type="button" className="btn btn-danger fw-bold fs-6">Logout</button> :

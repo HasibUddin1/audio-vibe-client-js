@@ -7,6 +7,8 @@ import Playlists from "../components/Playlists/Playlists";
 import Favorites from "../components/Favorites/Favorites";
 import Search from "../components/Search/Search";
 import PrivateRoute from "./PrivateRoute";
+import AddMusic from "../components/AddMusic/AddMusic";
+import ManageMusic from "../components/ManageMusic/ManageMusic";
 
 const router = createBrowserRouter([
     {
@@ -28,6 +30,14 @@ const router = createBrowserRouter([
             {
                 path: 'playlists',
                 element: <PrivateRoute><Playlists></Playlists></PrivateRoute>
+            },
+            {
+                path: 'addMusic',
+                element: <PrivateRoute><AddMusic></AddMusic></PrivateRoute>
+            },
+            {
+                path: 'manageMusic',
+                element: <PrivateRoute><ManageMusic></ManageMusic></PrivateRoute>
             }
         ]
     },
