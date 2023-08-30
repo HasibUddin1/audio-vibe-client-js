@@ -16,6 +16,8 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import useTitle from "../../hooks/useTitle";
 import getFavoriteMusic from "../../reduxServices/actions/FavoriteMusicAction";
+import getAllFeaturedMusic from "../../reduxServices/actions/FeaturedMusicAction";
+
 
 
 
@@ -25,6 +27,7 @@ const Home = () => {
     useTitle("Home")
 
     const { allMusic } = useSelector(state => state.allMusic)
+    const { allFeaturedMusic } = useSelector(state => state?.allFeaturedMusic)
 
     const dispatch = useDispatch()
     const [show, setShow] = useState(false);
@@ -62,6 +65,9 @@ const Home = () => {
     useEffect(() => {
         dispatch(getAllMusic())
     }, [dispatch])
+    useEffect(() => {
+        dispatch(getAllFeaturedMusic())
+    }, [dispatch])
 
     useEffect(() => {
         dispatch(getFavoriteMusic(user?.email))
@@ -94,7 +100,7 @@ const Home = () => {
                     className="mySwiper p-3 mb-5"
                 >
                     {
-                        allMusic.map(music => <SwiperSlide
+                        allFeaturedMusic.map(music => <SwiperSlide
                             key={music._id}
                         >
                             <SingleMusic

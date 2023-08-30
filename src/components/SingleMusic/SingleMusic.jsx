@@ -9,6 +9,7 @@ import { toast } from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import getFavoriteMusic from '../../reduxServices/actions/FavoriteMusicAction';
 import getAllMusic from '../../reduxServices/actions/allMusicActions';
+import getAllFeaturedMusic from '../../reduxServices/actions/FeaturedMusicAction';
 
 
 
@@ -48,7 +49,7 @@ const SingleMusic = ({ music, handleShow, getSingleMusic, favoriteMusic }) => {
             })
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data)
+                    // console.log(data)
                     if (data.insertedId) {
                         toast.success("Successfully added to favorites")
                         dispatch(getFavoriteMusic(user?.email))
@@ -63,6 +64,7 @@ const SingleMusic = ({ music, handleShow, getSingleMusic, favoriteMusic }) => {
                             .then(data => {
                                 if (data.modifiedCount > 0) {
                                     dispatch(getAllMusic())
+                                    dispatch(getAllFeaturedMusic())
                                 }
                             })
                     }

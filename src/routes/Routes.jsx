@@ -35,15 +35,15 @@ const router = createBrowserRouter([
             },
             {
                 path: 'addMusic',
-                element: <AdminRoute><AddMusic></AddMusic></AdminRoute>
+                element: <PrivateRoute><AdminRoute><AddMusic></AddMusic></AdminRoute></PrivateRoute>
             },
             {
                 path: 'manageMusic',
-                element: <AdminRoute><ManageMusic></ManageMusic></AdminRoute>
+                element: <PrivateRoute><AdminRoute><ManageMusic></ManageMusic></AdminRoute></PrivateRoute>
             },
             {
                 path: 'manageUsers',
-                element: <AdminRoute><ManageUsers></ManageUsers></AdminRoute>
+                element: <PrivateRoute><AdminRoute><ManageUsers></ManageUsers></AdminRoute></PrivateRoute>
             }
         ]
     },
