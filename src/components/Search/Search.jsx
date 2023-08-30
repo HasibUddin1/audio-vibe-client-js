@@ -9,6 +9,7 @@ import SingleMusic from "../SingleMusic/SingleMusic";
 import useTitle from "../../hooks/useTitle";
 import { useDispatch, useSelector } from "react-redux";
 import getFavoriteMusic from "../../reduxServices/actions/FavoriteMusicAction";
+import getAllMusic from "../../reduxServices/actions/allMusicActions";
 
 
 const Search = () => {
@@ -19,8 +20,10 @@ const Search = () => {
     const navigate = useNavigate()
     const [searchText, setSearchText] = useState('')
     const [singleMusic, setSingleMusic] = useState(null)
-    const [allMusic, setAllMusic] = useState([])
+    const [allSearchMusic, setAllSearchMusic] = useState([])
     const [show, setShow] = useState(false);
+    const { allMusic } = useSelector(state => state.allMusic)
+    const [showButton, setShowButton] = useState(true)
 
     const dispatch = useDispatch()
 
@@ -62,24 +65,23 @@ const Search = () => {
         if (searchText) {
             fetch(`https://audio-vibe-server.vercel.app/getMusicByTitle/${searchText}`)
                 .then(res => res.json())
-                .then(data => setAllMusic(data))
+                .then(data => setAllSearchMusic(data))
         }
         else {
-            fetch('https://audio-vibe-server.vercel.app/allMusicOnSearchDefault')
-                .then(res => res.json())
-                .then(data => setAllMusic(data))
+            dispatch(getAllMusic())
         }
-    }, [searchText])
+    }, [searchText, dispatch])
     // console.log(showMusic)
 
     const handleShowMore = () => {
         // load all music
         fetch('https://audio-vibe-server.vercel.app/allMusic')
             .then(res => res.json())
-            .then(data => setAllMusic(data))
+            .then(data => setAllSearchMusic(data))
 
         const showMoreButton = document.getElementById("show-more-btn")
         showMoreButton?.classList.add("d-none")
+        setShowButton(false)
     }
 
     return (
@@ -98,17 +100,37 @@ const Search = () => {
             />
             <div className="all-music-container p-2 mt-5 overflow-hidden">
                 {
-                    allMusic.map(music => <SingleMusic
-                        key={music._id}
-                        music={music}
-                        handleShow={handleShow}
-                        getSingleMusic={getSingleMusic}
-                        favoriteMusic={favoriteMusic}
-                    ></SingleMusic>)
+                    searchText ?
+                        allSearchMusic.map(music => <SingleMusic
+                            key={music._id}
+                            music={music}
+                            handleShow={handleShow}
+                            getSingleMusic={getSingleMusic}
+                            favoriteMusic={favoriteMusic}
+                        ></SingleMusic>)
+                        :
+                        showButton ?
+                            allMusic.slice(0, 9).map(music => <SingleMusic
+                                key={music._id}
+                                music={music}
+                                handleShow={handleShow}
+                                getSingleMusic={getSingleMusic}
+                                favoriteMusic={favoriteMusic}
+                            ></SingleMusic>)
+                            :
+                            allMusic.map(music => <SingleMusic
+                                key={music._id}
+                                music={music}
+                                handleShow={handleShow}
+                                getSingleMusic={getSingleMusic}
+                                favoriteMusic={favoriteMusic}
+                            ></SingleMusic>)
                 }
             </div>
             <div className="text-center">
-                <button id="show-more-btn" onClick={handleShowMore} className="btn btn-primary">Show More</button>
+                <button id="show-more-btn" onClick={handleShowMore} className={
+                    showButton ? "btn btn-primary" : "d-none"
+                }>Show More</button>
             </div>
         </div>
     );
