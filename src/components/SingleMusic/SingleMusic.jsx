@@ -39,7 +39,7 @@ const SingleMusic = ({ music, handleShow, getSingleMusic, favoriteMusic }) => {
         }
 
         if (user) {
-            fetch("https://audio-vibe-server.vercel.app/favoriteMusic", {
+            fetch("http://localhost:5000/favoriteMusic", {
                 method: 'POST',
                 headers: {
                     "content-type": "application/json"
@@ -48,7 +48,7 @@ const SingleMusic = ({ music, handleShow, getSingleMusic, favoriteMusic }) => {
             })
                 .then(res => res.json())
                 .then(data => {
-                    // console.log(data)
+                    console.log(data)
                     if (data.insertedId) {
                         toast.success("Successfully added to favorites")
                         dispatch(getFavoriteMusic(user?.email))
@@ -66,8 +66,7 @@ const SingleMusic = ({ music, handleShow, getSingleMusic, favoriteMusic }) => {
                                 }
                             })
                     }
-
-                    if (data.message) {
+                    else if (data.message) {
                         toast.error(data.message)
                     }
                 })

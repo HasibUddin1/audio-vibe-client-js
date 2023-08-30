@@ -9,6 +9,8 @@ import Search from "../components/Search/Search";
 import PrivateRoute from "./PrivateRoute";
 import AddMusic from "../components/AddMusic/AddMusic";
 import ManageMusic from "../components/ManageMusic/ManageMusic";
+import ManageUsers from "../components/ManageUsers/ManageUsers";
+import AdminRoute from "./AdminRoute";
 
 const router = createBrowserRouter([
     {
@@ -33,11 +35,15 @@ const router = createBrowserRouter([
             },
             {
                 path: 'addMusic',
-                element: <PrivateRoute><AddMusic></AddMusic></PrivateRoute>
+                element: <AdminRoute><AddMusic></AddMusic></AdminRoute>
             },
             {
                 path: 'manageMusic',
-                element: <PrivateRoute><ManageMusic></ManageMusic></PrivateRoute>
+                element: <AdminRoute><ManageMusic></ManageMusic></AdminRoute>
+            },
+            {
+                path: 'manageUsers',
+                element: <AdminRoute><ManageUsers></ManageUsers></AdminRoute>
             }
         ]
     },
