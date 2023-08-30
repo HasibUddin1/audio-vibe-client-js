@@ -61,7 +61,7 @@ const Login = () => {
                     role: 'regular'
                 }
                 // console.log(createdUser)
-                fetch('http://localhost:5000/users', {
+                fetch('https://audio-vibe-server.vercel.app/users', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'

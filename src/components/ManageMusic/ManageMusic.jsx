@@ -17,7 +17,7 @@ const ManageMusic = () => {
     }, [dispatch])
 
     const handleDelete = id => {
-        fetch(`http://localhost:5000/deleteMusic/${id}`, {
+        fetch(`https://audio-vibe-server.vercel.app/deleteMusic/${id}`, {
             method: 'DELETE'
         })
         .then(res => res.json())
@@ -31,11 +31,10 @@ const ManageMusic = () => {
     }
 
     return (
-        <div className="p-5">
+        <div className="p-lg-5">
             <table className="table">
                 <thead>
                     <tr>
-                        <th scope="col">Serial</th>
                         <th scope="col">Image</th>
                         <th scope="col">Name</th>
                         <th scope="col">Year</th>
@@ -45,10 +44,9 @@ const ManageMusic = () => {
                 </thead>
                 <tbody>
                     {
-                        allMusic.map((music, index) => <tr
+                        allMusic.map((music) => <tr
                             key={music._id}
                         >
-                            <td>{index + 1}</td>
                             <th scope="row">
                                 <img className="table-image" src={music.image} alt="" />
                             </th>

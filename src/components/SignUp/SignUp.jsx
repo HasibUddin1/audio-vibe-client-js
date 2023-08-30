@@ -36,7 +36,7 @@ const SignUp = () => {
                     role: 'regular'
                 }
 
-                fetch('http://localhost:5000/users', {
+                fetch('https://audio-vibe-server.vercel.app/users', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'
@@ -107,7 +107,7 @@ const SignUp = () => {
                         setError('')
                         navigate('/')
 
-                        fetch('http://localhost:5000/users', {
+                        fetch('https://audio-vibe-server.vercel.app/users', {
                             method: 'POST',
                             headers: {
                                 'content-type': 'application/json'

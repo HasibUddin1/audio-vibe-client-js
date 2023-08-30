@@ -39,7 +39,7 @@ const AddMusic = () => {
                 image: imageURL,
                 likes: 0
             }
-            fetch('http://localhost:5000/addMusic', {
+            fetch('https://audio-vibe-server.vercel.app/addMusic', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'
