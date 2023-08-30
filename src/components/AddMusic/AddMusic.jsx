@@ -61,19 +61,19 @@ const AddMusic = () => {
             <form onSubmit={handleAddMusic} className="row g-3">
                 <div className="col-md-6">
                     <label htmlFor="inputTitle4" className="form-label">Title</label>
-                    <input type="text" name="title" className="form-control" id="inputTitle4" placeholder="Music Title" />
+                    <input type="text" name="title" className="form-control" id="inputTitle4" />
                 </div>
                 <div className="col-md-6">
                     <label htmlFor="inputArtist4" className="form-label">Artist Name</label>
-                    <input type="text" name="artist" className="form-control" id="inputArtist4" placeholder="Artist Name" />
+                    <input type="text" name="artist" className="form-control" id="inputArtist4" />
                 </div>
                 <div className="col-12">
                     <label htmlFor="inputAudio" className="form-label">Youtube URL</label>
-                    <input type="text" name="audio" className="form-control" id="inputAudio" placeholder="Youtube URL" />
+                    <input type="text" name="audio" className="form-control" id="inputAudio" />
                 </div>
                 <div className="col-md-6">
                     <label htmlFor="inputYear" className="form-label">Release Year</label>
-                    <input type="number" name="year" className="form-control" id="inputYear" placeholder="Release Year" />
+                    <input type="number" name="year" className="form-control" id="inputYear" />
                 </div>
                 <div className="col-md-6">
                     <label htmlFor="inputStatus" className="form-label">Status</label>
@@ -85,7 +85,7 @@ const AddMusic = () => {
                     </select>
                 </div>
                 <div className="mb-3 col-md-4">
-                    <label htmlFor="formFile" className="form-label">Default file input example</label>
+                    <label htmlFor="formFile" className="form-label">Choose Image</label>
                     <input className="form-control" name="image" type="file" id="formFile" />
                 </div>
                 <div className="col-12">

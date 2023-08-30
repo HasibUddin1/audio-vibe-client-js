@@ -60,7 +60,7 @@ const Login = () => {
                     email: loggedUser.email,
                     role: 'regular'
                 }
-                console.log(createdUser)
+                // console.log(createdUser)
                 fetch('http://localhost:5000/users', {
                     method: 'POST',
                     headers: {

@@ -25,8 +25,7 @@ import getAllFeaturedMusic from "../../reduxServices/actions/FeaturedMusicAction
 const Home = () => {
 
     useTitle("Home")
-
-    const { allMusic } = useSelector(state => state.allMusic)
+    
     const { allFeaturedMusic } = useSelector(state => state?.allFeaturedMusic)
 
     const dispatch = useDispatch()
