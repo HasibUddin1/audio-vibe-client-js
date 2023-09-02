@@ -11,7 +11,7 @@ const ManageUsers = () => {
     const { allUsers } = useSelector(state => state.allUsers)
 
     const handleDelete = id => {
-        fetch(`http://localhost:5000/deleteUser/${id}`, {
+        fetch(`https://audio-vibe-server.vercel.app/deleteUser/${id}`, {
             method: 'DELETE',
         })
             .then(res => res.json())
@@ -24,7 +24,7 @@ const ManageUsers = () => {
     }
 
     const handleMakeAdmin = id => {
-        fetch(`http://localhost:5000/makeAdmin/${id}`, {
+        fetch(`https://audio-vibe-server.vercel.app/makeAdmin/${id}`, {
             method: 'PATCH'
         })
         .then(res => res.json())

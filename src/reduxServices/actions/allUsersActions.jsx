@@ -6,7 +6,7 @@ import { GET_ALL_USERS, GET_ALL_USERS_FAILED, GET_ALL_USERS_SUCCESS } from "../c
 const getAllUsers = () => async (dispatch) => {
     dispatch({ type: GET_ALL_USERS })
     try {
-        fetch("http://localhost:5000/users")
+        fetch("https://audio-vibe-server.vercel.app/users")
             .then(res => res.json())
             .then(data => {
                 dispatch({ type: GET_ALL_USERS_SUCCESS, payload: data })

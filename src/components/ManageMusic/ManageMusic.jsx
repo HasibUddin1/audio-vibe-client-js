@@ -31,7 +31,7 @@ const ManageMusic = () => {
     }
 
     const handleMakeRegular = id => {
-        fetch(`http://localhost:5000/makeRegular/${id}`, {
+        fetch(`https://audio-vibe-server.vercel.app/makeRegular/${id}`, {
             method: 'PATCH'
         })
             .then(res => res.json())
@@ -45,7 +45,7 @@ const ManageMusic = () => {
     }
 
     const handleMakeFeatured = id => {
-        fetch(`http://localhost:5000/makeFeatured/${id}`, {
+        fetch(`https://audio-vibe-server.vercel.app/makeFeatured/${id}`, {
             method: 'PATCH'
         })
         .then(res => res.json())
