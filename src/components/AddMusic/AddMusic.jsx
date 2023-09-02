@@ -81,7 +81,6 @@ const AddMusic = () => {
                         <option defaultChecked>Status</option>
                         <option value="featured">Featured</option>
                         <option value="regular">Regular</option>
-                        <option value="popular">Popular</option>
                     </select>
                 </div>
                 <div className="mb-3 col-md-4">

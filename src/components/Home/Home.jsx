@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 import useTitle from "../../hooks/useTitle";
 import getFavoriteMusic from "../../reduxServices/actions/FavoriteMusicAction";
 import getAllFeaturedMusic from "../../reduxServices/actions/FeaturedMusicAction";
+import useAdmin from "../../hooks/useAdmin";
 
 
 
@@ -25,7 +26,7 @@ import getAllFeaturedMusic from "../../reduxServices/actions/FeaturedMusicAction
 const Home = () => {
 
     useTitle("Home")
-    
+
     const { allFeaturedMusic } = useSelector(state => state?.allFeaturedMusic)
 
     const dispatch = useDispatch()
@@ -33,6 +34,8 @@ const Home = () => {
     const [singleMusic, setSingleMusic] = useState(null)
     const { user } = useContext(AuthContext)
     const navigate = useNavigate()
+    const [isAdmin] = useAdmin()
+    
 
     const { favoriteMusic } = useSelector(state => state.favoriteMusic)
 
@@ -107,6 +110,7 @@ const Home = () => {
                                 handleShow={handleShow}
                                 getSingleMusic={getSingleMusic}
                                 favoriteMusic={favoriteMusic}
+                                isAdmin={isAdmin}
                             ></SingleMusic>
                         </SwiperSlide>)
                     }

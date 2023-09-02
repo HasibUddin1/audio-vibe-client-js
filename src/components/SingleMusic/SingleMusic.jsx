@@ -13,7 +13,7 @@ import getAllFeaturedMusic from '../../reduxServices/actions/FeaturedMusicAction
 
 
 
-const SingleMusic = ({ music, handleShow, getSingleMusic, favoriteMusic }) => {
+const SingleMusic = ({ music, handleShow, getSingleMusic, favoriteMusic, isAdmin }) => {
 
     const { user } = useContext(AuthContext)
 
@@ -104,19 +104,27 @@ const SingleMusic = ({ music, handleShow, getSingleMusic, favoriteMusic }) => {
                         <p className="card-text"><small className="text-body-secondary">Released Year: {music.year}</small></p>
                     </div>
                     <div className='buttons-container'>
-                        <a className='width-fit-content fs-2 text-center padding-top border-0' href={music.audio} target='blank'><FaPlayCircle></FaPlayCircle></a>
-                        <button onClick={() => {
-                            handleShow(music)
-                            getSingleMusic(music)
-                        }} className='bg-transparent text-secondary width-fit-content fs-2 border-0'><MdPlaylistAddCircle></MdPlaylistAddCircle></button>
-                        <button onClick={() => {
-                            handleAddToFavorite(music)
-                        }} className='bg-transparent text-danger width-fit-content fs-2 border-0'>{
-                                isFavorite ?
-                                    <MdFavorite></MdFavorite> :
-                                    <MdFavoriteBorder></MdFavoriteBorder>
-                            }</button>
-                        <p className='fw-bold width-fit-content fs-5'>{music.likes}</p>
+                        {
+                            isAdmin ?
+                                <></> :
+                                <>
+                                    <a className='width-fit-content fs-2 text-center padding-top border-0' href={music.audio} target='blank'><FaPlayCircle></FaPlayCircle></a>
+                                    <button onClick={() => {
+                                        handleShow(music)
+                                        getSingleMusic(music)
+                                    }} className='bg-transparent text-secondary width-fit-content fs-2 border-0'><MdPlaylistAddCircle></MdPlaylistAddCircle></button>
+                                    <button onClick={() => {
+                                        handleAddToFavorite(music)
+                                    }} className='bg-transparent text-danger width-fit-content fs-2 border-0'>{
+                                            isFavorite ?
+                                                <MdFavorite></MdFavorite> :
+                                                <MdFavoriteBorder></MdFavoriteBorder>
+                                        }</button>
+                                </>
+                        }
+                        <p className='fw-bold width-fit-content fs-5'>{
+                            isAdmin ? `Likes: ${music.likes}` : music.likes
+                        }</p>
                     </div>
                 </div>
             </div>
