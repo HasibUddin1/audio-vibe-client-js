@@ -11,6 +11,8 @@ import useAdmin from './../../hooks/useAdmin';
 
 const NavigationBar = () => {
 
+    // TODO: have to implement isAdminLoading here
+
     const [isAdmin] = useAdmin()
 
     const { user, logOut } = useContext(AuthContext)
