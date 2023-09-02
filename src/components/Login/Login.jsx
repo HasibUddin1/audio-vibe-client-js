@@ -27,13 +27,40 @@ const Login = () => {
 
         setError('')
         signIn(email, password)
-            .then(() => {
+            .then((result) => {
+
+                const loggedUser = result.user
                 Swal.fire({
                     title: 'Success',
                     text: 'You have successfully logged in',
                     icon: 'success',
                     confirmButtonText: 'Ok'
                 })
+
+                const createdUser = {
+                    name: loggedUser.displayName,
+                    email: loggedUser.email,
+                    role: 'regular'
+                }
+
+                fetch('https://audio-vibe-server.vercel.app/users', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(createdUser)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.insertedId) {
+                            // added the user information to database
+                        }
+                    })
+                    .catch(error => {
+                        if (error) {
+                            // error on adding user information to the database
+                        }
+                    })
                 navigate('/')
             })
             .catch((error) => {
@@ -70,12 +97,12 @@ const Login = () => {
                 })
                     .then(res => res.json())
                     .then(data => {
-                        if(data.insertedId){
+                        if (data.insertedId) {
                             // added user information to the database
                         }
                     })
                     .catch(error => {
-                        if(error){
+                        if (error) {
                             // error on adding user information on database
                         }
                     })
